@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | HostelEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel { 
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-[url('images/back2.avif')] bg-cover bg-fixed bg-center text-gray-900 min-h-screen flex items-center justify-center p-6">
+
+    <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 bg-white rounded-[3rem] shadow-2xl shadow-indigo-100 overflow-hidden border border-slate-100">
+        
+        <div class="hidden md:flex bg-indigo-600 p-12 flex-col justify-between relative overflow-hidden">
+            <div class="relative z-10">
+                <span class="text-2xl font-black text-white tracking-tighter">HE.</span>
+                <h2 class="text-4xl font-black text-white mt-12 leading-tight">
+                    Welcome to the <br> <span class="text-indigo-200">Roomie Revolution.</span>
+                </h2>
+                <p class="text-indigo-100 mt-4 font-medium max-w-xs">
+                    Join 5,000+ students managing their hostel life with zero stress.
+                </p>
+            </div>
+
+            <div class="relative z-10 bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20">
+                <p class="text-white font-bold italic">"Finally, I don't have to remind my roommates about the electricity bill every month!"</p>
+                <p class="text-indigo-200 text-sm mt-2">— Aryan, Room 302</p>
+            </div>
+
+            <div class="absolute -top-10 -right-10 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-700 rounded-full blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="p-8 md:p-16 flex flex-col justify-center">
+            <div class="mb-10">
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight">Login.</h1>
+                <p class="text-slate-500 font-medium mt-2">Enter your credentials to access your room.</p>
+            </div>
+    
+            <form id="loginForm" class="space-y-6">
+                <div class="space-y-2">
+                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="name@college.edu" required
+                        class="w-full px-6 py-4 bg-slate-50 rounded-2xl border border-transparent focus:bg-white focus:border-indigo-600 focus:outline-none transition-all font-bold text-slate-700">
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center px-1">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Password</label>
+                        <a href="#" class="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:text-indigo-700 transition">Forgot?</a>
+                    </div>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required
+                        class="w-full px-6 py-4 bg-slate-50 rounded-2xl border border-transparent focus:bg-white focus:border-indigo-600 focus:outline-none transition-all font-bold text-slate-700">
+                </div>
+
+                <button type="submit" 
+                    class="w-full bg-indigo-600 text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-indigo-100 hover:bg-indigo-700 hover:-translate-y-1 transition-all active:scale-95">
+                    Jump In 🚀
+                </button>
+            </form>
+            <div class="mt-8 text-center">
+                <p class="text-sm font-bold text-slate-400">
+                    Don't have an account? 
+                    <a href="signup.html" class="text-indigo-600 hover:text-indigo-800 transition">Sign in →</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+            <script>
+                const loginForm = document.getElementById("loginForm");
+
+                loginForm.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+
+                    const email = document.getElementById("loginEmail").value;
+                    const password = document.getElementById("loginPassword").value;
+
+                    try {
+                        const res = await fetch("http://localhost:5000/api/auth/login", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ email, password }),
+                        });
+
+                        const data = await res.json();
+
+                        if (res.status === 200) {
+                            // Store the name so the dashboard says "Welcome back, [Name]"
+                            localStorage.setItem("userName", data.user.name);
+                            localStorage.setItem("userId", data.user.id);
+                            
+                            window.location.href = "dashboard.html";
+                        } else {
+                            alert(data.message); // Shows "Invalid credentials" or "User not found"
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert("Something went wrong connecting to the server.");
+                    }
+                });
+            </script>
+       
+
+</body>
+</html>

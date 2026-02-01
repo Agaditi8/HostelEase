@@ -1,0 +1,9 @@
+/* style.css */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Optional: Offset for fixed headers */
+section {
+    scroll-margin-top: 80px; /* This prevents the header from covering the section title */
+}

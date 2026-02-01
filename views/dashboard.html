@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | HostelEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .transition-all-slow { transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900">
+
+    <nav class="max-w-5xl mx-auto mt-6 px-6 py-4 glass border border-white/50 rounded-3xl shadow-xl shadow-indigo-100/50 flex justify-between items-center sticky top-6 z-50">
+        <div class="flex items-center gap-8">
+            <span class="text-xl font-black text-indigo-600 tracking-tighter">HE.</span>
+            <div class="hidden md:flex gap-6 text-sm font-semibold text-slate-500">
+                <a href="dashboard.html" class="text-indigo-600">Overview</a>
+                <a href="expenses.html" class="hover:text-indigo-600 transition">Expenses</a>
+                <a href="splitbill.html" class="hover:text-indigo-600 transition">Splitter</a>
+                <a href="goals.html" class="hover:text-indigo-600 transition">Goals</a>
+                <a href="literacy.html" class="hover:text-indigo-600 transition">Literacy</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="text-right hidden sm:block">
+                <h1 class="text-2xl font-black text-slate-900">Welcome, <span id="userDisplayName">User</span>!</h1>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+                <h1 class="text-4xl font-black tracking-tight mb-2">My Finances 💸</h1>
+                <p class="text-slate-500 font-medium italic">Your live financial command center.</p>
+            </div>
+            <div class="flex gap-3 justify-end items-end">
+                <button onclick="location.href='expenses.html'" class="bg-indigo-600 text-white px-6 py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 hover:scale-105 transition-transform active:scale-95">
+                    + Add Expense
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm col-span-1 md:col-span-2">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h3 class="font-bold text-slate-400 text-sm uppercase tracking-wider">Monthly Spending</h3>
+                        <p class="text-3xl font-black">₹<span id="dashSpentDisplay">0</span> / <span id="dashBudgetDisplay" class="text-slate-300">₹0</span></p>
+                    </div>
+                    <span id="budgetStatusBadge" class="bg-emerald-50 text-emerald-600 text-xs px-3 py-1 rounded-full font-bold">Checking...</span>
+                </div>
+                <div class="w-full bg-slate-100 h-5 rounded-full overflow-hidden p-1">
+                    <div id="dashProgressBar" class="bg-indigo-600 h-full rounded-full transition-all-slow" style="width: 0%"></div>
+                </div>
+                <p class="mt-4 text-sm text-slate-500 font-medium">₹<span id="dashRemainingDisplay">0</span> remaining for the month.</p>
+            </div>
+
+            <div class="p-8 rounded-[2.5rem] bg-emerald-600 text-white shadow-2xl shadow-emerald-200 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="font-bold text-emerald-100 text-sm uppercase tracking-wider mb-4">Total Saved</h3>
+                    <p class="text-4xl font-black mb-2">₹<span id="totalSavedDisplay">0</span></p>
+                    <p class="text-emerald-100 text-xs font-medium">Auto-synced to your goals</p>
+                    <div class="mt-8 bg-white/20 p-3 rounded-2xl inline-block text-2xl">💰</div>
+                </div>
+                <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full"></div>
+            </div>
+
+            <div id="highestGoalCard" class="p-8 rounded-[2.5rem] bg-slate-900 text-white shadow-xl lg:col-span-1">
+                <h3 class="font-bold text-slate-400 text-sm uppercase tracking-wider mb-6">Priority Goal</h3>
+                <div id="goalContent">
+                    <p class="text-slate-500 text-sm animate-pulse">Syncing goal...</p>
+                </div>
+                <a href="goals.html" class="block mt-6 text-center text-sm font-bold text-indigo-400 hover:text-indigo-300 transition">View All Goals →</a>
+            </div>
+
+            <div class="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm lg:col-span-2">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-black text-xl">Spending Breakdown</h3>
+                    <button id="generateReportBtn" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-4 py-2 rounded-xl hover:bg-indigo-100 transition">
+                        Full Report 📊
+                    </button>
+                </div>
+                <div id="categoryList" class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    </div>
+            </div>
+
+            <div class="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm lg:col-span-3">
+                <h3 class="font-black text-xl mb-6 text-center">Recent Swipes</h3>
+                <div id="recentSwipesContainer" class="space-y-4">
+                    <p class="text-slate-400 text-sm italic text-center">Fetching transactions...</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="p-8 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm lg:col-span-3 mt-8">
+            <h3 class="font-black text-xl mb-6">Spending Trends 📈</h3>
+            <div class="h-[300px] w-full">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            document.getElementById("userDisplayName").innerText = localStorage.getItem("userName") || "User";
+
+            try {
+                const budgetLimit = parseFloat(localStorage.getItem('budgetGoal')) || 10000;
+                document.getElementById("dashBudgetDisplay").innerText = `₹${budgetLimit.toLocaleString()}`;
+
+                const expRes = await fetch('http://localhost:5000/api/expenses');
+                const expenses = await expRes.json();
+
+                // 1. Calculations: Separate Savings from Spending
+                const totalSpent = expenses.filter(e => e.category !== "Savings").reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+                const totalSaved = expenses.filter(e => e.category === "Savings").reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+                const remaining = Math.max(0, budgetLimit - totalSpent - totalSaved);
+                const percent = Math.min((totalSpent / budgetLimit) * 100, 100);
+
+                // Update UI Counters
+                document.getElementById("dashSpentDisplay").innerText = totalSpent.toLocaleString();
+                document.getElementById("totalSavedDisplay").innerText = totalSaved.toLocaleString();
+                document.getElementById("dashRemainingDisplay").innerText = remaining.toLocaleString();
+                
+                // Progress Bar & Badge
+                const bar = document.getElementById("dashProgressBar");
+                const badge = document.getElementById("budgetStatusBadge");
+                setTimeout(() => bar.style.width = `${percent}%`, 200);
+
+                if (percent > 90) {
+                    badge.innerText = "Over Limit!";
+                    badge.className = "bg-rose-100 text-rose-700 text-xs px-3 py-1 rounded-full font-bold";
+                    bar.classList.add("bg-rose-500");
+                } else {
+                    badge.innerText = "Safe Zone";
+                    badge.className = "bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-full font-bold";
+                }
+
+                // 2. Category Breakdown Logic
+                const categoryTotals = {};
+                expenses.forEach(e => {
+                    const cat = e.category || "Other";
+                    categoryTotals[cat] = (categoryTotals[cat] || 0) + Number(e.amount);
+                });
+
+                const catList = document.getElementById("categoryList");
+                catList.innerHTML = Object.entries(categoryTotals).map(([cat, amount]) => `
+                    <div class="p-4 rounded-2xl ${cat === 'Savings' ? 'bg-emerald-50 border border-emerald-100' : 'bg-slate-50'}">
+                        <p class="text-[10px] font-black uppercase text-slate-400 mb-1">${cat}</p>
+                        <p class="text-lg font-black ${cat === 'Savings' ? 'text-emerald-600' : 'text-slate-800'}">₹${amount.toLocaleString()}</p>
+                    </div>
+                `).join('');
+
+                // 3. Report Generator
+                document.getElementById("generateReportBtn").onclick = () => {
+                    const topCat = Object.entries(categoryTotals).sort((a,b) => b[1]-a[1])[0];
+                    const savingsRate = ((totalSaved / (totalSpent + totalSaved)) * 100 || 0).toFixed(1);
+                    alert(`📊 FINANCIAL REPORT\n--------------------\nTotal Cash Flow: ₹${(totalSpent+totalSaved).toLocaleString()}\nSavings Rate: ${savingsRate}%\nTop Expense: ${topCat[0]} (₹${topCat[1].toLocaleString()})\n\n${savingsRate > 20 ? "Legendary saving! 🏆" : "Try to save 20% next month! 💡"}`);
+                };
+
+                // 4. Update Recent Swipes
+                const swipesContainer = document.getElementById("recentSwipesContainer");
+                swipesContainer.innerHTML = expenses.slice(0, 4).map(e => `
+                    <div class="flex justify-between items-center p-4 hover:bg-slate-50 rounded-2xl transition border border-transparent hover:border-slate-100">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-10 h-10 ${e.category === 'Savings' ? 'bg-emerald-100 text-emerald-600' : 'bg-indigo-50 text-indigo-600'} rounded-xl flex items-center justify-center text-lg">
+                                ${e.category === 'Savings' ? '💰' : e.category.includes('Food') ? '🍔' : '💸'}
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-800">${e.description}</p>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase">${e.category}</p>
+                            </div>
+                        </div>
+                        <p class="font-black ${e.category === 'Savings' ? 'text-emerald-600' : 'text-slate-700'}">
+                            ${e.category === 'Savings' ? '+' : '-'} ₹${e.amount.toLocaleString()}
+                        </p>
+                    </div>
+                `).join('') || `<p class="text-slate-400 text-sm text-center">No transactions yet.</p>`;
+
+                // 5. FETCH PRIORITY GOAL
+                const goalRes = await fetch('http://localhost:5000/api/goals');
+                const goals = await goalRes.json();
+                const goalContent = document.getElementById("goalContent");
+
+                if (goals.length > 0) {
+                    const priorityGoal = goals[0];
+                    const progress = Math.min(Math.round((priorityGoal.savedAmount / priorityGoal.targetAmount) * 100), 100);
+                    goalContent.innerHTML = `
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="text-3xl">🎯</div>
+                            <div>
+                                <p class="font-bold text-lg">${priorityGoal.title}</p>
+                                <p class="text-xs text-slate-500">₹${priorityGoal.savedAmount.toLocaleString()} saved</p>
+                            </div>
+                        </div>
+                        <div class="w-full bg-white/10 h-2 rounded-full overflow-hidden mb-2">
+                            <div id="goalBarInner" class="bg-indigo-400 h-full rounded-full transition-all-slow" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-indigo-400">
+                            <span>${progress}% Complete</span>
+                            ${priorityGoal.isPriority ? '<span class="bg-white/10 px-2 py-0.5 rounded">Priority</span>' : ''}
+                        </div>
+                    `;
+                    setTimeout(() => document.getElementById("goalBarInner").style.width = `${progress}%`, 500);
+                } else {
+                    goalContent.innerHTML = `<p class="text-slate-500 text-sm italic text-center">No active goals found.</p>`;
+                }
+
+            } catch (err) {
+                console.error("Dashboard Error:", err);
+            }
+        });
+
+        // --- TRANSACTION CHART LOGIC ---
+        document.addEventListener("DOMContentLoaded", async () => {
+        // 1. Setup User
+        document.getElementById("userDisplayName").innerText = localStorage.getItem("userName") || "User";
+
+        try {
+            // 2. Fetch the data
+            const expRes = await fetch('http://localhost:5000/api/expenses');
+            const expenses = await expRes.json(); // <--- 'expenses' is defined HERE
+
+            // --- ALL YOUR MATH (Spent, Saved, Percent) GOES HERE ---
+            const totalSpent = expenses.filter(e => e.category !== "Savings").reduce((sum, e) => sum + (Number(e.amount) || 0), 0);
+            // ... (other math) ...
+
+            // --- TRANSACTION CHART LOGIC (Must be inside this block!) ---
+            const ctx = document.getElementById('trendChart').getContext('2d');
+            
+            // Filter and get last 7
+            const chartExpenses = expenses
+                .filter(e => e.category !== "Savings")
+                .slice(0, 7)
+                .reverse();
+
+            const chartLabels = chartExpenses.map(e => e.description || "Expense");
+            const chartData = chartExpenses.map(e => Number(e.amount));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                        label: 'Amount (₹)',
+                        data: chartData,
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+            // --- END CHART LOGIC ---
+
+        } catch (err) {
+            console.error("Dashboard Error:", err);
+            // If fetch fails, expenses won't exist, so the chart won't try to load (preventing the error)
+        }
+    });
+    </script>
+</body>
+</html>

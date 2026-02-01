@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Bill | HostelEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .tab-active { 
+            background-color: #4f46e5; 
+            color: white; 
+            box-shadow: 0 10px 15px -3px rgba(165, 180, 252, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900">
+
+    <nav class="max-w-5xl mx-auto mt-6 px-6 py-4 glass border border-white/50 rounded-3xl shadow-xl shadow-indigo-100/50 flex justify-between items-center sticky top-6 z-50">
+        <div class="flex items-center gap-8">
+            <span class="text-xl font-black text-indigo-600 tracking-tighter">HE.</span>
+            <div class="hidden md:flex gap-6 text-sm font-semibold text-slate-500">
+                <a href="dashboard.html" class="hover:text-indigo-600 transition">Overview</a>
+                <a href="expenses.html" class="hover:text-indigo-600 transition">Expenses</a>
+                <a href="splitbill.html" class="text-indigo-600">Splitter</a>
+                <a href="goals.html" class="hover:text-indigo-600 transition">Goals</a>
+                <a href="literacy.html" class="hover:text-indigo-600 transition">Literacy</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="relative group">
+                <button class="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-2xl text-xs font-extrabold text-indigo-600 border border-indigo-100">
+                    <span id="currentGroupName">📍 Room 402</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div class="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                    <p class="text-[10px] font-black text-slate-400 uppercase p-2 tracking-widest">Your Circles</p>
+                    <a href="#" class="block p-3 text-sm font-bold text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition">Room 402</a>
+                    <a href="#" class="block p-3 text-sm font-bold text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition">Goa Trip 🏖️</a>
+                    <a href="#" class="block p-3 text-sm font-bold text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition">Canteen Squad</a>
+                    <div class="border-t border-slate-50 my-1"></div>
+                    <button class="w-full text-left p-3 text-sm font-bold text-indigo-600 hover:bg-indigo-50 rounded-xl transition">+ Create New Circle</button>
+                </div>
+            </div>
+        </div>
+            
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+            <div>
+                <h1 class="text-4xl font-black tracking-tight mb-2">Split the Damage ✂️</h1>
+                <p class="text-slate-500 font-medium">Clear the dues before things get awkward.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 space-y-4">
+                <h3 class="font-bold text-slate-400 text-xs uppercase tracking-widest ml-2">Active Dues</h3>
+                
+                <div class="p-4 bg-white rounded-[2rem] border border-slate-100 shadow-sm flex items-center justify-between border-l-4 border-l-rose-500">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center font-bold">S</div>
+                        <div>
+                            <p class="font-bold text-sm">Sarthak</p>
+                            <p class="text-[10px] text-rose-500 font-bold uppercase">Owes You</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-black text-rose-600">₹640</p>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white rounded-[2rem] border border-slate-100 shadow-sm flex items-center justify-between border-l-4 border-l-amber-500">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center font-bold">A</div>
+                        <div>
+                            <p class="font-bold text-sm">Ananya</p>
+                            <p class="text-[10px] text-amber-500 font-bold uppercase">You Owe</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-black text-amber-600">₹120</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2 p-8 bg-white rounded-[3rem] border border-slate-100 shadow-xl">
+                <h3 class="text-xl font-black mb-6">Quick Split Calculator</h3>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-tighter ml-1">Total Bill Amount</label>
+                        <div class="relative mt-2">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">₹</span>
+                            <input type="number" id="billAmount" placeholder="0.00" class="w-full pl-10 pr-4 py-4 bg-slate-50 rounded-2xl border-none focus:ring-2 focus:ring-indigo-500 text-xl font-black">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-tighter ml-1">Split With (Number of People)</label>
+                        <div class="flex items-center gap-4 mt-3">
+                            <button onclick="updatePeople(-1)" class="w-12 h-12 bg-slate-100 rounded-xl font-black text-xl">-</button>
+                            <span id="peopleCount" class="text-2xl font-black w-8 text-center">2</span>
+                            <button onclick="updatePeople(1)" class="w-12 h-12 bg-slate-100 rounded-xl font-black text-xl">+</button>
+                            <span class="text-slate-400 font-bold text-sm ml-2">(Including you)</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-indigo-50 rounded-[2rem] flex justify-between items-center transition-all" id="resultCard">
+                        <div>
+                            <p class="text-indigo-600 font-bold text-sm uppercase">Each Person Pays</p>
+                            <p class="text-4xl font-black text-indigo-900">₹<span id="perPersonAmount">0.00</span></p>
+                        </div>
+                        <div class="text-right">
+                            <button onclick="sendSplitRequest()" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold text-sm shadow-lg shadow-indigo-200 hover:scale-105 transition">Send Request 🚀</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let people = 2;
+        const billInput = document.getElementById('billAmount');
+        const peopleDisplay = document.getElementById('peopleCount');
+        const perPersonDisplay = document.getElementById('perPersonAmount');
+
+        function calculateSplit() {
+            const total = parseFloat(billInput.value) || 0;
+            const split = total / people;
+            perPersonDisplay.innerText = split.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        }
+
+        function updatePeople(change) {
+            people = Math.max(1, people + change);
+            peopleDisplay.innerText = people;
+            calculateSplit();
+        }
+
+        billInput.addEventListener('input', calculateSplit);
+
+        async function sendSplitRequest() {
+            const amount = perPersonDisplay.innerText;
+            if (parseFloat(amount) === 0) return alert("Enter a bill amount first!");
+
+            // Simulate sending notification to roommates
+            const btn = event.target;
+            btn.innerText = "Sent! ✅";
+            btn.classList.replace('bg-indigo-600', 'bg-emerald-500');
+            
+            // Log this as a special expense category so it doesn't mess with personal budget
+            // but keeps a record
+            try {
+                const response = await fetch('http://localhost:5000/api/expenses', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        description: `Split Bill Request`,
+                        amount: parseFloat(billInput.value),
+                        category: 'Split',
+                        date: new Date()
+                    })
+                });
+                
+                if(response.ok) {
+                    setTimeout(() => {
+                        alert(`Split request of ₹${amount} sent to your roommates!`);
+                        window.location.href = 'dashboard.html';
+                    }, 500);
+                }
+            } catch (err) {
+                console.error("Failed to log split", err);
+            }
+        }
+        
+
+
+    </script>
+</body>
+</html>

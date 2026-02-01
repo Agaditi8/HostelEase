@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Literacy | HostelEase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .article-card:hover .arrow { transform: translateX(5px); }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-slate-900">
+
+    <nav class="max-w-5xl mx-auto mt-6 px-6 py-4 glass border border-white/50 rounded-3xl shadow-xl shadow-indigo-100/50 flex justify-between items-center sticky top-6 z-50">
+        <div class="flex items-center gap-8">
+            <span class="text-xl font-black text-indigo-600 tracking-tighter">HE.</span>
+            <div class="hidden md:flex gap-6 text-sm font-semibold text-slate-500">
+                <a href="dashboard.html" class="hover:text-indigo-600 transition">Overview</a>
+                <a href="expenses.html" class="hover:text-indigo-600 transition">Expenses</a>
+                <a href="splitbill.html" class="hover:text-indigo-600 transition">Splitter</a>
+                <a href="goals.html" class="hover:text-indigo-600 transition">Goals</a>
+                <a href="literacy.html" class="hover:text-indigo-600 transition text-indigo-600">Literacy</a>
+            </div>
+        </div>
+        
+        <div class="px-4 py-2 bg-indigo-100 text-indigo-600 rounded-xl font-black text-xs uppercase">
+            Level 4: Money Pro
+        </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+        
+        <div class="mb-12">
+            <h1 class="text-4xl font-black tracking-tight mb-2">Money <span class="text-indigo-600">Mastery</span> 🧠</h1>
+            <p class="text-slate-500 font-medium">No one taught us this in school. Let's fix that.</p>
+        </div>
+
+        <div class="bg-indigo-600 rounded-[3rem] p-8 md:p-12 text-white mb-10 relative overflow-hidden">
+            <div class="relative z-10 grid md:grid-cols-2 gap-10 items-center">
+                <div>
+                    <span class="bg-white/20 text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-widest">Recommended for you</span>
+                    <h2 class="text-4xl font-black mt-6 mb-4">The 50/30/20 Rule for Students</h2>
+                    <p class="text-indigo-100 mb-8 leading-relaxed">Learn how to survive on a pocket money budget without eating Maggi every night for the last week of the month.</p>
+                    <button class="bg-white text-indigo-600 px-8 py-4 rounded-2xl font-bold shadow-xl hover:scale-105 transition-transform">Start Reading</button>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
+                        <p class="text-2xl font-black">50%</p>
+                        <p class="text-xs font-bold text-indigo-200 uppercase tracking-tighter">Needs (Rent/Mess)</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
+                        <p class="text-2xl font-black">30%</p>
+                        <p class="text-xs font-bold text-indigo-200 uppercase tracking-tighter">Wants (Cafes/Movies)</p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-2xl border border-white/10">
+                        <p class="text-2xl font-black">20%</p>
+                        <p class="text-xs font-bold text-indigo-200 uppercase tracking-tighter">Savings (Goals)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-50"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="article-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all cursor-pointer group">
+                <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    📉
+                </div>
+                <h3 class="text-xl font-black mb-3 group-hover:text-indigo-600 transition">Inflation 101</h3>
+                <p class="text-sm text-slate-500 leading-relaxed mb-6">Why your 10-rupee Samosa used to cost 5 rupees and what it means for your future.</p>
+                <div class="flex items-center gap-2 text-indigo-600 font-bold text-sm">
+                    Read Article <span class="arrow transition-transform">→</span>
+                </div>
+            </div>
+
+            <div class="article-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all cursor-pointer group">
+                <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    💳
+                </div>
+                <h3 class="text-xl font-black mb-3 group-hover:text-indigo-600 transition">Credit Card Traps</h3>
+                <p class="text-sm text-slate-500 leading-relaxed mb-6">Understanding "Buy Now, Pay Later" schemes that target Indian students today.</p>
+                <div class="flex items-center gap-2 text-indigo-600 font-bold text-sm">
+                    Read Article <span class="arrow transition-transform">→</span>
+                </div>
+            </div>
+
+            <div class="article-card bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all cursor-pointer group">
+                <div class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                    🚀
+                </div>
+                <h3 class="text-xl font-black mb-3 group-hover:text-indigo-600 transition">Power of Compounding</h3>
+                <p class="text-sm text-slate-500 leading-relaxed mb-6">How ₹500 invested today can become a mountain of gold by the time you're 40.</p>
+                <div class="flex items-center gap-2 text-indigo-600 font-bold text-sm">
+                    Read Article <span class="arrow transition-transform">→</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-12 p-8 rounded-[2.5rem] bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-6">
+                <div class="text-4xl">💡</div>
+                <div>
+                    <h4 class="font-black text-xl">Weekly Money Tip</h4>
+                    <p class="text-slate-400 text-sm italic">"Don't save what is left after spending; spend what is left after saving."</p>
+                </div>
+            </div>
+            <button class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition">New Tip Every Monday</button>
+        </div>
+    </main>
+
+</body>
+</html>
