@@ -6,27 +6,27 @@ HostelEase is an all-in-one hostel expense manager designed for students living 
 ## *Features*
 1. *Customized user dashboard*
    - Real-time budgeting with progress bars
+   - Sign up and login pages
    - Record of total money saved
    - Spending breakdown and trends on chart 
    - Priority goal and recent swipes.
      
 1. *Budgeting & Expense Tracking*
-   - Monthly budget editor
    - Add and track your expenses
    - Category-wise expense tracking (food, utilities, travel, etc.)
    - Real-time budgeting with progress bars
 
 2. *Shared Utilities Management*
-   - Automatic bill splitting among friends
+   - Automatic bill splitting among friends (backend pending)
    - Split bill calculator
-   - Create and join circles to split bills.
+   - Create and join circles to split bills.(backend pending)
 
-4. *Reminders & Notifications*
+4. *Reminders & Notifications* (backend pending)
    - Polite reminders for pending payments
    - Visibility of pending dues for everyone in the circle
 
 5. *Financial Literacy & Goals*
-   - Track savings for goals like gadgets or trips
+   - Track savings for goals like gadgets or trips (backend pending)
    - Set high priority goal and save them first
    - Learn money management rules (50/30/20 rule, budgeting tips)
 
